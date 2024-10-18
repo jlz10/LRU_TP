@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1729287178 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lista.c
+	"Lista.h"
+
+1729287178 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lista.h
+	<stdio.h>
+	<stdlib.h>
+
+1729287178 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.c
+	"Lista.h"
+
