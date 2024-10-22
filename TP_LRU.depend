@@ -2,10 +2,18 @@
 1729287178 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lista.c
 	"Lista.h"
 
-1729287178 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lista.h
+1729288041 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lista.h
 	<stdio.h>
 	<stdlib.h>
 
-1729287178 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.c
+1729554118 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.c
 	"Lista.h"
+	"LRU.h"
+
+1729554097 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.c
+	"LRU.h"
+
+1729554060 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.h
+	"Lista.h"
+	<string.h>
 
