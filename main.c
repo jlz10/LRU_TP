@@ -38,5 +38,6 @@ int main()
     agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
     printf("Se agregó el dato: %d\n", dato);
 
+    //testing de enteros!
     mostrar_lrucache(&cache);
 }

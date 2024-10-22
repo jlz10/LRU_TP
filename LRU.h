@@ -6,6 +6,8 @@
 #include <string.h>
 
 #define MIN(X,Y)( ((X) < (Y))? (X) : (Y) )
+#define TODO_OK 1
+#define ERR_MEM 0
 
 typedef struct{
     tLista pl;

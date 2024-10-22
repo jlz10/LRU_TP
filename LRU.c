@@ -91,6 +91,7 @@ int borrar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
     tNodo* act = cache->pl;
     tNodo* ant = NULL;
 
+    //buscamos el nodo a borrar
     while(act){
         if(cmp(act->info, p) == 0){
             if(ant){
