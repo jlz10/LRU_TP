@@ -1,4 +1,3 @@
-#include "Lista.h"
 #include "LRU.h"
 
 int main()
@@ -6,7 +5,7 @@ int main()
     t_lru_cache cache;
     int dato;
 
-    // Creamos la caché con capacidad 3
+    // Creamos la cachï¿½ con capacidad 3
     crear_lrucache(&cache, 3);
 
     // Agregamos algunos datos
@@ -36,8 +35,28 @@ int main()
     //Se deberia eliminar el ultimo (3).
     dato = 4;
     agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
-    printf("Se agregó el dato: %d\n", dato);
+    printf("Se agregï¿½ el dato: %d\n", dato);
 
     //testing de enteros!
     mostrar_lrucache(&cache);
+}
+
+
+void mostrar_lrucache(t_lru_cache* cache) {
+
+    tNodo* act = cache->pl;
+
+    printf("Contenido de la cachï¿½ (de mï¿½s reciente a menos reciente):\n");
+
+    while (act) {
+        printf("%d -> ", *(int*)(act->info));  // Testing de enteros
+        act = act->sig;
+    }
+    printf("NULL\n");
+}
+
+int cmpInt(const void* a, const void* b){
+    int * e1 = (int*) a;
+    int * e2 = (int*) b;
+    return *e1 - *e2;
 }

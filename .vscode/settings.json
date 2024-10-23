@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "Lista.h": "c",
+    "LRU.h": "c",
+    "estructuras.h": "c",
+    "funciones_estudiante.h": "c",
+    "stdio.h": "c",
+    "string.h": "c"
+  }
+}
