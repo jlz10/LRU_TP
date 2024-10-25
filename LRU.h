@@ -9,6 +9,17 @@
 #define TODO_OK 1
 #define ERR_MEM 0
 
+//LISTA
+
+typedef struct sNodo{
+    void* info;
+    size_t tamElem;
+    struct sNodo* sig;
+}tNodo;
+
+typedef tNodo* tLista;
+
+
 typedef struct{
     tLista pl;
     size_t cap;

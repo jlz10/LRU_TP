@@ -2,12 +2,13 @@
 void crear_lrucache(t_lru_cache* cache, size_t capacidad){
     cache->pl = NULL; //Lista inicializada en NULL
     cache->cap = capacidad; //Le ponemos la capacidad del usuario
-    cache->tam_actual = 0; //El tamaño actual de la lista
+    cache->tam_actual = 0; //El tamanio actual de la lista
 }
 
 int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
     tNodo* act = cache->pl;
     tNodo* ant = NULL;
+    tNodo* nue = NULL;
 
     //Si existe el dato, remplazamos la info y lo ponemos como el primer nodo
     while(act){
@@ -21,7 +22,7 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
             memcpy(act->info, p, tamDato);
             if(ant){
                 ant->sig = act->sig;
-                act->sig = ant;
+                act->sig = cache->pl;
                 cache->pl = act;
             }
             return 1;
@@ -29,25 +30,6 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
         ant = act;
         act = act->sig;
     }
-
-
-    //Operacion para insertar un nuevo dato
-
-    tNodo* nue = (tNodo*) malloc(sizeof(tNodo));
-    if(!nue){
-        return 0;
-    }
-    nue->info = malloc(tamDato);
-    if(!nue->info){
-        free(nue);
-        return 0;
-    }
-    nue->tamElem = tamDato;
-    memcpy(nue->info, p, tamDato);
-    nue->sig = cache->pl;
-    cache->pl = nue;
-    cache->tam_actual++;
-
     //Cuando se llena la cache se debe eliminar el ultimo!!
 
     if (cache->tam_actual > cache->cap) {
@@ -65,6 +47,19 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
         free(act);
         cache->tam_actual--;
     }
+
+    //Operacion para insertar un nuevo dato
+
+    if((nue = (tNodo*) malloc(sizeof(tNodo))) == NULL || (nue->info = malloc(tamDato)) == NULL){
+       free(nue);
+       return 0;
+    }
+    nue->tamElem = tamDato;
+    memcpy(nue->info, p, tamDato);
+    nue->sig = cache->pl;
+    cache->pl = nue;
+    cache->tam_actual++;
+
     return 1;
 }
 
@@ -75,7 +70,7 @@ int obtener_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
     while(act){
         if(cmp(act->info, p) == 0){
             ant->sig = act->sig; //Matcheamos el siguiente
-            act->sig = ant; //Ponemos al inicio el nodo encontrado ya que se uso
+            act->sig = cache->pl; //Ponemos al inicio el nodo encontrado ya que se uso
             cache->pl = act; // apuntamos la lista al primer nodo mas usado
             memcpy(p, act->info, MIN(tamDato, act->tamElem));
             return 1;
@@ -127,7 +122,7 @@ void vaciar_lrucache(t_lru_cache* cache){
 
 void mostrar_lrucache(t_lru_cache* cache) {
     tNodo* act = cache->pl;
-    printf("Contenido de la caché (de más reciente a menos reciente):\n");
+    printf("Contenido de la cache (de mas reciente a menos reciente):\n");
 
     while (act) {
         printf("%d -> ", *(int*)(act->info));  // Testing de enteros
