@@ -28,6 +28,7 @@ typedef struct sNodo{
 
 typedef tNodo* tLista;
 
+//LRU CACHE 
 
 typedef struct{
     tLista pl;

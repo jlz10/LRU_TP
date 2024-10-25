@@ -8,6 +8,8 @@
 #define ARCH_POS 1
 
 
+//Si quieren cambiar las estructuras con otro nombre mejor, lo puse asi
+
 typedef struct{
     int id;
     char text[TAM_TEXT];
