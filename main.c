@@ -7,6 +7,7 @@ int generarArchivo(char* userArch);
 int main(int argc, char* argv[])
 {
     generarArchivo(argv[ARCH_POS]);
+    return 1;
 }
 
 int generarArchivo(char* userArch){
