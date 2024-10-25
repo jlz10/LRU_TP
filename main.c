@@ -1,4 +1,3 @@
-#include "Lista.h"
 #include "LRU.h"
 #include "main.h"
 
@@ -20,4 +19,24 @@ int generarArchivo(char* userArch){
     fwrite(&tPost, sizeof(Post), 2, pf);
     fclose(pf);
     return 1;
+}
+
+
+void mostrar_lrucache(t_lru_cache* cache) {
+
+    tNodo* act = cache->pl;
+
+    printf("Contenido de la cach� (de m�s reciente a menos reciente):\n");
+
+    while (act) {
+        printf("%d -> ", *(int*)(act->info));  // Testing de enteros
+        act = act->sig;
+    }
+    printf("NULL\n");
+}
+
+int cmpInt(const void* a, const void* b){
+    int * e1 = (int*) a;
+    int * e2 = (int*) b;
+    return *e1 - *e2;
 }

@@ -1,13 +1,22 @@
 #ifndef LRU_H_INCLUDED
 #define LRU_H_INCLUDED
 
-#include "Lista.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define MIN(X,Y)( ((X) < (Y))? (X) : (Y) )
 #define TODO_OK 1
 #define ERR_MEM 0
+#define NOT_FOUND 0
+
+typedef struct sNodo{
+    void* info;
+    size_t tamElem;
+    struct sNodo* sig;
+}tNodo;
+
+typedef tNodo* tLista;
 
 //LISTA
 
