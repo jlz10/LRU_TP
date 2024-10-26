@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
     vaciar_lrucache(&cache);
 
-    sleep(1);
+    //sleep(1);
 
     t2 = clock();
 

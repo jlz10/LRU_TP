@@ -10,14 +10,6 @@
 #define ERR_MEM 0
 #define NOT_FOUND 0
 
-typedef struct sNodo{
-    void* info;
-    size_t tamElem;
-    struct sNodo* sig;
-}tNodo;
-
-typedef tNodo* tLista;
-
 //LISTA
 
 typedef struct sNodo{
@@ -28,7 +20,7 @@ typedef struct sNodo{
 
 typedef tNodo* tLista;
 
-//LRU CACHE 
+//LRU CACHE
 
 typedef struct{
     tLista pl;
