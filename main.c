@@ -1,6 +1,6 @@
 #include "LRU.h"
 #include <time.h>
-#include "main.h"
+#include "cabeceras.h"
 
 int generarArchivo(char* userArch);
 
