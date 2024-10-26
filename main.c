@@ -1,11 +1,13 @@
 #include "LRU.h"
+#include <time.h>
 
 int main()
 {
     t_lru_cache cache;
     int dato;
-
-    // Creamos la cach� con capacidad 3
+    clock_t t1,t2;
+    t1 = clock();
+    // Creamos la cache con capacidad 3
     crear_lrucache(&cache, 3);
 
     // Agregamos algunos datos
@@ -39,6 +41,14 @@ int main()
 
     //testing de enteros!
     mostrar_lrucache(&cache);
+
+    vaciar_lrucache(&cache);
+
+    sleep(1);
+
+    t2 = clock();
+
+    printf("tiempo de ejecucion: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
 }
 
 
@@ -60,3 +70,9 @@ int cmpInt(const void* a, const void* b){
     int * e2 = (int*) b;
     return *e1 - *e2;
 }
+
+//generas lote de pruebas de posteos
+//generas lotes de pruebas de feeds
+    //compara sin y con cache
+    //medir tiempos
+    //probar con varias capacidades

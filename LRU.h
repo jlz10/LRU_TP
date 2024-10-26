@@ -22,8 +22,7 @@ typedef struct{
     tLista pl;
     size_t cap;
     size_t tam_actual;
-}
-t_lru_cache;
+}t_lru_cache;
 
 typedef int(*Cmp)(const void*, const void*);
 
