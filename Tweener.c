@@ -44,7 +44,7 @@ int procesar_feed_sin_cache(tFeed * feed, tUser * user, FILE * posteos){
     return TODO_OK;
 }
 
-int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed); {
+int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
     tFeed feed;
     tUser user;
 
@@ -67,7 +67,7 @@ int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed) {
     tUser user;
 
     while (fread(&user, sizeof(user), 1, users_feed) == 1) {
-        if (procesar_feed_sin_cache(&feed, &user, posteos, users_feed) != TODO_OK) {
+        if (procesar_feed_sin_cache(&feed, &user, posteos) != TODO_OK) {
             return ERR_MEM;
         }
     }
@@ -81,7 +81,7 @@ int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed) {
 }
 
 int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
-  if(buscar_lrucache(cache,tweet,sizeof(tTweet),cmpTweet))
+  if(obtener_lrucache(cache,tweet,sizeof(tTweet),cmpTweet))
     return TODO_OK;
 
   fseek(posteos,tweet->id-1*sizeof(tTweet),SEEK_SET);

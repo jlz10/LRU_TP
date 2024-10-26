@@ -25,10 +25,10 @@ typedef struct{
 typedef int(*Cmp)(const void*, const void*);
 
 //agrega los posteos al cache
-int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos,  size_t capacidad); //ESTA
+int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos); //ESTA
 
 int procesar_feed(tFeed * feed,tUser * user, t_lru_cache* cache, FILE * posteos);
-int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos, FILE * users_feed);
+int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos);
 
 int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed);
 int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed); 
