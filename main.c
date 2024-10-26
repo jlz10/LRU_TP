@@ -1,7 +1,10 @@
 #include "LRU.h"
 #include <time.h>
+#include "main.h"
 
-int main()
+int generarArchivo(char* userArch);
+
+int main(int argc, char* argv[])
 {
     t_lru_cache cache;
     int dato;

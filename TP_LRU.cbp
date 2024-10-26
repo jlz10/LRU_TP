@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="user.bin post.bin" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -35,13 +36,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LRU.h" />
-		<Unit filename="Lista.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Lista.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="main.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

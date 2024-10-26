@@ -18,6 +18,18 @@ typedef struct sNodo{
 
 typedef tNodo* tLista;
 
+//LISTA
+
+typedef struct sNodo{
+    void* info;
+    size_t tamElem;
+    struct sNodo* sig;
+}tNodo;
+
+typedef tNodo* tLista;
+
+//LRU CACHE 
+
 typedef struct{
     tLista pl;
     size_t cap;
