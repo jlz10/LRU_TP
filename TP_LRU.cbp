@@ -36,10 +36,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LRU.h" />
+		<Unit filename="Tweener.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Tweener.h" />
+		<Unit filename="cabeceras.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="main.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

@@ -1,12 +1,12 @@
 #include "Tweener.h"
 
-int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos,  size_t capacidad){
+int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos){
 
   int i = 0;
   tTweet tweet;
 
   fread(&tweet,sizeof(tweet),1,posteos);
-  while(!feof(posteos)||capacidad<i){
+  while(!feof(posteos)||cache->cap<i){
     if(!agregar_lrucache(cache,&tweet,sizeof(tweet),cmpTweet))
       return ERR_MEM;
     fread(&tweet,sizeof(tweet),1,posteos);
@@ -16,12 +16,36 @@ int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos,  size_t capacidad){
   return TODO_OK;
 }
 
-int procesar_feed(tFeed * feed,tUser * user, t_lru_cache* cache, FILE * posteos);
-int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos, FILE * users_feed);
+int procesar_feed(tFeed * feed, tUser * user, t_lru_cache* cache, FILE * posteos){
+    tTweet tweet;
+
+    for (int i = 0; i < 20; i++) {
+        tweet.id = user->feed[i];
+        if (buscar_tweet(&tweet, cache, posteos)){
+            strcpy(feed->user, user->user);
+            feed->feed[i] = tweet;
+        }
+    }
+    return TODO_OK;
+}
+
+int procesar_feed_sin_cache(tFeed * feed, tUser * user, FILE * posteos){
+    int i;
+    tTweet tweet;
+
+    for(i = 0; i < 20; i++){
+      tweet.id = user->feed[i];
+      if((buscar_tweet_sin_cache(&tweet, posteos))){
+        strcpy(feed->user, user->user);
+        feed->feed[i] = tweet;
+      }
+    }
+
+    return TODO_OK;
+}
 
 int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed);
-int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed); 
-
+int procesar_feeds_sin_cache(FILE * posteos, FILE * users_feed);
 
 int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
   if(buscar_lrucache(cache,tweet,sizeof(tTweet),cmpTweet))
@@ -36,8 +60,8 @@ int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
     return ERR_MEM;
 }
 
-int buscar_tweet_sin_cache(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
-  
+int buscar_tweet_sin_cache(tTweet * tweet, FILE * posteos){
+
   fseek(posteos,tweet->id-1*sizeof(tTweet),SEEK_SET);
   fread(tweet,sizeof(tTweet),1,posteos);
 
