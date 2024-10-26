@@ -1,21 +1,5 @@
 #include "Tweener.h"
 
-int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos){
-
-  int i = 0;
-  tTweet tweet;
-
-  fread(&tweet,sizeof(tweet),1,posteos);
-  while(!feof(posteos)||cache->cap<i){
-    if(!agregar_lrucache(cache,&tweet,sizeof(tweet),cmpTweet))
-      return ERR_MEM;
-    fread(&tweet,sizeof(tweet),1,posteos);
-    i++;
-  }
-
-  return TODO_OK;
-}
-
 int procesar_feed(tFeed * feed, tUser * user, t_lru_cache* cache, FILE * posteos){
     tTweet tweet;
 
@@ -48,15 +32,13 @@ int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
     tFeed feed;
     tUser user;
 
-    while (fread(&user, sizeof(user), 1, users_feed) == 1) {
+    fseek(users_feed,0,SEEK_SET);
+    fread(&user,sizeof(tUser),1,users_feed);
+    while (!feof(users_feed)) {
         if (procesar_feed(&feed, &user, cache, posteos) != TODO_OK) {
             return ERR_MEM;
         }
-    }
-
-    if (ferror(users_feed)) {
-        perror("Error al leer el archivo de usuarios");
-        return ERR_MEM;
+        fread(&user,sizeof(tUser),1,users_feed);
     }
 
     return TODO_OK;
@@ -65,16 +47,12 @@ int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
 int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed) {
     tFeed feed;
     tUser user;
-
+    
+    fseek(users_feed,0,SEEK_SET);
     while (fread(&user, sizeof(user), 1, users_feed) == 1) {
         if (procesar_feed_sin_cache(&feed, &user, posteos) != TODO_OK) {
             return ERR_MEM;
         }
-    }
-
-    if (ferror(users_feed)) {
-        perror("Error al leer el archivo de usuarios");
-        return ERR_MEM;
     }
 
     return TODO_OK;

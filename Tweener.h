@@ -9,7 +9,7 @@
 
 typedef struct{
     int id;
-    char texto[140];
+    char texto[141];
 }tTweet;
 
 typedef struct{
@@ -24,8 +24,6 @@ typedef struct{
 
 typedef int(*Cmp)(const void*, const void*);
 
-//agrega los posteos al cache
-int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos); //ESTA
 
 int procesar_feed(tFeed * feed,tUser * user, t_lru_cache* cache, FILE * posteos);
 int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos);

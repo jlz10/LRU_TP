@@ -6,6 +6,7 @@
     "estructuras.h": "c",
     "funciones_estudiante.h": "c",
     "stdio.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "cabeceras.h": "c"
   }
 }

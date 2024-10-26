@@ -1,81 +1,53 @@
-#include "LRU.h"
-#include <time.h>
 #include "cabeceras.h"
-
-int generarArchivo(char* userArch);
 
 int main(int argc, char* argv[])
 {
     t_lru_cache cache;
-    int dato;
     clock_t t1,t2;
+    FILE * fpruebas, * fusers_feed;
+
+    fpruebas =  fopen("LotePruebas\\posteos.bin", "rb");
+    if(fpruebas == NULL){
+        printf("Error al abrir el archivo de posteos\n");
+        return 1;
+    }
+
+    fusers_feed =  fopen("LotePruebas\\feed_5000.bin", "rb");
+    if(fusers_feed == NULL){
+        fclose(fpruebas);  
+        printf("Error al abrir el archivo de feeds\n");
+        return 1;
+    }
+
+
     t1 = clock();
-    // Creamos la cache con capacidad 3
-    crear_lrucache(&cache, 3);
 
-    // Agregamos algunos datos
-    dato = 1;
-    agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
-    printf("Se agrego el dato: %d\n", dato);
-    //1
-
-    dato = 2;
-    agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
-    printf("Se agrego el dato: %d\n", dato);
-
-    //2 1
-    dato = 3;
-    agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
-    printf("Se agrego el dato: %d\n", dato);
-
-    //3 2 1
-    int clave = 2;
-    int resultado = obtener_lrucache(&cache, &clave, sizeof(int), cmpInt);
-    if (resultado)
-        printf("Se obtuvo el dato: %d\n", clave);
-    else
-
-        printf("Dato no encontrado: %d\n", clave);
-
-    //Se deberia eliminar el ultimo (3).
-    dato = 4;
-    agregar_lrucache(&cache, &dato, sizeof(int), cmpInt);
-    printf("Se agreg� el dato: %d\n", dato);
-
-    //testing de enteros!
-    mostrar_lrucache(&cache);
+    // Creamos la cache con capacidad 7
+    crear_lrucache(&cache, 15);
+    
+    // Procesamos los feeds
+    procesar_feeds(&cache, fpruebas, fusers_feed);
 
     vaciar_lrucache(&cache);
 
-    //sleep(1);
+    t2 = clock();
+
+    printf("tiempo de ejecucion cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
+
+
+    t1 = clock();
+
+    procesar_feeds_sin_cache(fpruebas, fusers_feed);
 
     t2 = clock();
 
-    printf("tiempo de ejecucion: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
+    printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
+
+    fclose(fusers_feed);
+    fclose(fpruebas);
+    
+    
+
+    return 0;
+
 }
-
-
-void mostrar_lrucache(t_lru_cache* cache) {
-
-    tNodo* act = cache->pl;
-
-    printf("Contenido de la cach� (de m�s reciente a menos reciente):\n");
-
-    while (act) {
-        printf("%d -> ", *(int*)(act->info));  // Testing de enteros
-        act = act->sig;
-    }
-    printf("NULL\n");
-}
-
-int cmpInt(const void* a, const void* b){
-    int * e1 = (int*) a;
-    int * e2 = (int*) b;
-    return *e1 - *e2;
-}
-
-//generas lote de pruebas de posteos
-//generas lotes de pruebas de feeds
-    //compara sin y con cache
-    //medir tiempos
-    //probar con varias capacidades
