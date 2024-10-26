@@ -19,8 +19,41 @@ int cargar_posteos_cache(t_lru_cache* cache, FILE * posteos,  size_t capacidad){
 int procesar_feed(tFeed * feed,tUser * user, t_lru_cache* cache, FILE * posteos);
 int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos, FILE * users_feed);
 
-int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed);
-int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed); 
+int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed); {
+    tFeed feed;
+    tUser user;
+
+    while (fread(&user, sizeof(user), 1, users_feed) == 1) {
+        if (procesar_feed(&feed, &user, cache, posteos) != TODO_OK) {
+            return ERR_MEM;
+        }
+    }
+
+    if (ferror(users_feed)) {
+        perror("Error al leer el archivo de usuarios");
+        return ERR_MEM;
+    }
+
+    return TODO_OK;
+}
+
+int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed) {
+    tFeed feed;
+    tUser user;
+
+    while (fread(&user, sizeof(user), 1, users_feed) == 1) {
+        if (procesar_feed_sin_cache(&feed, &user, posteos, users_feed) != TODO_OK) {
+            return ERR_MEM;
+        }
+    }
+
+    if (ferror(users_feed)) {
+        perror("Error al leer el archivo de usuarios");
+        return ERR_MEM;
+    }
+
+    return TODO_OK;
+}
 
 
 int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
