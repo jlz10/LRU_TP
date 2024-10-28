@@ -6,17 +6,32 @@
 	<stdio.h>
 	<stdlib.h>
 
-1729832802 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.c
-	"Lista.h"
-	"LRU.h"
-	"main.h"
+1730083017 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.c
+	"cabeceras.h"
 
-1729649812 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.c
+1730070377 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.c
 	"LRU.h"
 
-1729649850 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.h
-	"Lista.h"
+1730082585 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\lru.h
+	<stdio.h>
+	<stdlib.h>
 	<string.h>
 
 1729832751 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\main.h
+
+1730082588 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\cabeceras.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Tweener.h"
+
+1730082588 c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\tweener.h
+	"LRU.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1730082588 source:c:\users\jorge\onedrive\escritorio\materias\algoritmos2ndtry\tp_lru\tweener.c
+	"Tweener.h"
 

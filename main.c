@@ -62,8 +62,39 @@ int main(int argc, char* argv[])
     t2 = clock();
 
     printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
+    
+    printf("------CON CACHE -----\n");
+    printf("500 usuarios y cache con 7 capacidad:\n");
+    
+    t1 = clock();
 
+     // Creamos la cache con capacidad 12
+    crear_lrucache(&cache, 7);
+    
+    // Procesamos los feeds
+    procesar_feeds(&cache, fpruebas, fusers_feed500);
 
+    vaciar_lrucache(&cache);
+
+    t2 = clock();
+
+    printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
+
+    printf("500 usuarios y cache con 12 capacidad:\n");
+    
+    t1 = clock();
+
+     // Creamos la cache con capacidad 12
+    crear_lrucache(&cache, 12);
+    
+    // Procesamos los feeds
+    procesar_feeds(&cache, fpruebas, fusers_feed500);
+
+    vaciar_lrucache(&cache);
+
+    t2 = clock();
+
+    printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
 
     fclose(fusers_feed500);
     fclose(fusers_feed3000);
