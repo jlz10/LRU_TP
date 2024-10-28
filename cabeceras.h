@@ -6,11 +6,6 @@
 #include <time.h>
 #include "Tweener.h"
 
-#define TAM_POST 50000
-#define TAM_TEXT 141
-#define TAM_NAME 16
-#define TAM_FEED 20
-#define ARCH_POS 1
-
+#define ERR_ARCHIVO 0
 
 #endif // CABECERAS_H

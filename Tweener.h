@@ -7,26 +7,26 @@
 #include <string.h>
 #include <time.h>
 
+#define TAM_FEED 20
+#define TAM_TEXT 141
+#define TAM_NAME 15
+
 typedef struct{
     int id;
-    char texto[141];
+    char texto[TAM_TEXT];
 }tTweet;
 
 typedef struct{
-    char user[15];
-    int feed[20];
+    char user[TAM_NAME];
+    int feed[TAM_FEED];
 }tUser;
 
 typedef struct{
-    char user[15];
-    tTweet feed[20];
+    char user[TAM_NAME];
+    tTweet feed[TAM_FEED];
 }tFeed;
 
 typedef int(*Cmp)(const void*, const void*);
-
-
-int procesar_feed(tFeed * feed,tUser * user, t_lru_cache* cache, FILE * posteos);
-int procesar_feed_sin_cache(tFeed * feed,tUser * user,FILE * posteos);
 
 int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed);
 int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed); 

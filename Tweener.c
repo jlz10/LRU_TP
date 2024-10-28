@@ -1,59 +1,75 @@
 #include "Tweener.h"
 
-int procesar_feed(tFeed * feed, tUser * user, t_lru_cache* cache, FILE * posteos){
-    tTweet tweet;
-
-    for (int i = 0; i < 20; i++) {
-        tweet.id = user->feed[i];
-        if (buscar_tweet(&tweet, cache, posteos)){
-            strcpy(feed->user, user->user);
-            feed->feed[i] = tweet;
-        }
-    }
-    return TODO_OK;
-}
-
-int procesar_feed_sin_cache(tFeed * feed, tUser * user, FILE * posteos){
-    int i;
-    tTweet tweet;
-
-    for(i = 0; i < 20; i++){
-      tweet.id = user->feed[i];
-      if((buscar_tweet_sin_cache(&tweet, posteos))){
-        strcpy(feed->user, user->user);
-        feed->feed[i] = tweet;
-      }
-    }
-
-    return TODO_OK;
-}
 
 int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
-    tFeed feed;
-    tUser user;
+  tFeed feed;
+  tUser user;
+  tTweet tweet;
+  int i, user_acum = 0;
+  clock_t t1,t2;
 
-    fseek(users_feed,0,SEEK_SET);
-    fread(&user,sizeof(tUser),1,users_feed);
-    while (!feof(users_feed)) {
-        if (procesar_feed(&feed, &user, cache, posteos) != TODO_OK) {
-            return ERR_MEM;
-        }
-        fread(&user,sizeof(tUser),1,users_feed);
+  fseek(users_feed,0,SEEK_SET);
+
+  //Leemos el primer usuario, comenzamos el clock
+  t1 = clock();
+  fread(&user,sizeof(tUser),1,users_feed);
+  while (!feof(users_feed)) {
+    
+    for (i = 0; i < TAM_FEED; i++) {
+      tweet.id = user.feed[i];
+      
+      if (buscar_tweet(&tweet, cache, posteos)){
+        strcpy(feed.user, user.user);
+        feed.feed[i] = tweet;
+        
+      }else{
+        return ERR_MEM;
+      }
+      
     }
 
-    return TODO_OK;
+    user_acum++;
+    fread(&user,sizeof(tUser),1,users_feed);
+  }
+
+  t2 = clock();
+  printf("tiempo de ejecucion cache promedio procesar un feed de usuario: %f \n", ((float)(t2-t1)/(CLOCKS_PER_SEC*user_acum)));
+  printf("tiempo de ejecucion cache promedio de buscar un Tweet: %.14lf \n", ((double)(t2-t1)/(CLOCKS_PER_SEC*user_acum*TAM_FEED)));
+    
+
+  return TODO_OK;
 }
 
 int procesar_feeds_sin_cache( FILE * posteos, FILE * users_feed) {
     tFeed feed;
     tUser user;
+    tTweet tweet;
+    int i, user_acum = 0;
+    clock_t t1,t2;
+    
     
     fseek(users_feed,0,SEEK_SET);
-    while (fread(&user, sizeof(user), 1, users_feed) == 1) {
-        if (procesar_feed_sin_cache(&feed, &user, posteos) != TODO_OK) {
-            return ERR_MEM;
+    //Leemos el primer usuario, comenzamos el clock
+    t1 = clock();
+    fread(&user,sizeof(tUser),1,users_feed);
+    while (!feof(users_feed)) {
+
+      for(i = 0; i < TAM_FEED; i++){
+        tweet.id = user.feed[i];
+        if((buscar_tweet_sin_cache(&tweet, posteos))){
+          strcpy(feed.user, user.user);
+          feed.feed[i] = tweet;
         }
+      }
+
+      user_acum++;
+      fread(&user,sizeof(tUser),1,users_feed);
     }
+
+    t2 = clock();
+    printf("tiempo de ejecucion sin cache promedio procesar un feed de usuario: %f \n", ((float)(t2-t1)/(CLOCKS_PER_SEC*user_acum)));
+    printf("tiempo de ejecucion sin cache promedio de buscar un Tweet: %.14lf \n", ((double)(t2-t1)/(CLOCKS_PER_SEC*user_acum*TAM_FEED)));
+
 
     return TODO_OK;
 }
