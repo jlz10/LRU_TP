@@ -10,11 +10,7 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
     tNodo* act = cache->pl;
     tNodo* ant = NULL;
     tNodo* nue = NULL;
-
-    //Tengo entendido que el profe justamente no quiere llamado a funcion inecesarios, esto es por eso?
-    //Siento que queda ya demasiado compleja la operacion
-
-    //Si existe el dato, remplazamos la info y lo ponemos como el primer nodo
+    
     while(act){
 
         if(cmp(act->info, p) == 0){

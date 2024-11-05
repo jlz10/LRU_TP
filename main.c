@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 
     printf("tiempo de ejecucion con cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
 
-    printf("500 usuarios y cache con 7 capacidad:\n");
+    printf("500 usuarios y cache con 12 capacidad:\n");
     
     t1 = clock();
 
@@ -129,13 +129,14 @@ int main(int argc, char* argv[])
 
     t2 = clock();
 
-    printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC));
-    
+    printf("tiempo de ejecucion sin cache: %f \n", ((float)(t2-t1)/CLOCKS_PER_SEC)); 
+
     fclose(fusers_feed500);
+    fclose(fusers_feed500_sim);
     fclose(fusers_feed3000);
     fclose(fpruebas);
     
-    
+    system("pause");
 
     return 0;
 

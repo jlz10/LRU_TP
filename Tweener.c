@@ -78,7 +78,7 @@ int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
   if(obtener_lrucache(cache,tweet,sizeof(tTweet),cmpTweet))
     return TODO_OK;
 
-  fseek(posteos,tweet->id-1*sizeof(tTweet),SEEK_SET);
+  fseek(posteos,(tweet->id-1)*sizeof(tTweet),SEEK_SET);
   fread(tweet,sizeof(tTweet),1,posteos);
 
   if(agregar_lrucache(cache,tweet,sizeof(tTweet),cmpTweet))
@@ -89,7 +89,7 @@ int buscar_tweet(tTweet * tweet, t_lru_cache* cache, FILE * posteos){
 
 int buscar_tweet_sin_cache(tTweet * tweet, FILE * posteos){
 
-  fseek(posteos,tweet->id-1*sizeof(tTweet),SEEK_SET);
+  fseek(posteos,(tweet->id-1)*sizeof(tTweet),SEEK_SET);
   fread(tweet,sizeof(tTweet),1,posteos);
 
   return TODO_OK;
