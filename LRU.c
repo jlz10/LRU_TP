@@ -79,9 +79,12 @@ int obtener_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
 
     while(act){
         if(cmp(act->info, p) == 0){
-            if(ant != NULL)
-                ant->sig = act->sig; //Matcheamos el siguiente
-            act->sig = cache->pl; //Ponemos segundo al nodo que anteriormente era primero
+            if(ant != NULL){
+                ant->sig = act->sig;
+                act->sig = cache->pl;
+            }
+             //Matcheamos el siguiente
+             //Ponemos segundo al nodo que anteriormente era primero
             cache->pl = act; // apuntamos la lista al primer nodo
             memcpy(p, act->info, MIN(tamDato, act->tamElem));
             return TODO_OK;

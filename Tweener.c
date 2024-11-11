@@ -14,7 +14,6 @@ int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
   t1 = clock();
   fread(&user,sizeof(tUser),1,users_feed);
   while (!feof(users_feed)) {
-    
     for (i = 0; i < TAM_FEED; i++) {
       tweet.id = user.feed[i];
       
@@ -27,7 +26,6 @@ int procesar_feeds(t_lru_cache* cache, FILE * posteos, FILE * users_feed) {
       }
       
     }
-
     user_acum++;
     fread(&user,sizeof(tUser),1,users_feed);
   }

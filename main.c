@@ -38,11 +38,11 @@ int main(int argc, char* argv[])
 
     printf("Procesando feeds...\n");
     printf("------CON CACHE -----\n");
-    printf("3000 usuarios y cache con 12 capacidad:\n");
+    printf("3000 usuarios y cache con 100 capacidad:\n");
     t1 = clock();
 
-    // Creamos la cache con capacidad 12
-    crear_lrucache(&cache, 12);
+    // Creamos la cache con capacidad 100
+    crear_lrucache(&cache, 17);
     
     // Procesamos los feeds
     procesar_feeds(&cache, fpruebas, fusers_feed3000);

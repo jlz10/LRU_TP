@@ -18,12 +18,12 @@ typedef struct sNodo{
     struct sNodo* sig;
 }tNodo;
 
-typedef tNodo* tLista;
+//typedef tNodo* tLista;
 
 //LRU CACHE
 
 typedef struct{
-    tLista pl;
+    tNodo* pl;
     size_t cap;
     size_t tam_actual;
 }t_lru_cache;
