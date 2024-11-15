@@ -22,12 +22,13 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
                 return ERR_MEM;
 
             memcpy(act->info, p, tamDato);
-            
-            if(ant){ //Si no existe el anterior no se mueve
-                ant->sig = act->sig;
-                act->sig = cache->pl;
-                cache->pl = act;
-            }
+
+            if(ant == NULL)
+                return TODO_OK;
+
+            ant->sig = act->sig;
+            act->sig = cache->pl;
+            cache->pl = act;
 
             return TODO_OK;
 
@@ -36,7 +37,6 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
         ant = act;
         act = act->sig;
     }
-
 
     //Cuando se llena la cache se debe eliminar el ultimo!!
 
@@ -48,6 +48,7 @@ int agregar_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
             ant = act;
             act = act->sig;
         }
+        
         if (ant)
             ant->sig = NULL;
 
@@ -79,10 +80,12 @@ int obtener_lrucache(t_lru_cache* cache, void* p, size_t tamDato, Cmp cmp){
 
     while(act){
         if(cmp(act->info, p) == 0){
+            
             if(ant != NULL){
                 ant->sig = act->sig;
                 act->sig = cache->pl;
             }
+
              //Matcheamos el siguiente
              //Ponemos segundo al nodo que anteriormente era primero
             cache->pl = act; // apuntamos la lista al primer nodo
